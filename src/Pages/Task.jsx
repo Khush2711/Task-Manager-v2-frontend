@@ -192,40 +192,45 @@ function Task() {
       </div>
 
       <DragDropContext onDragEnd={onDragEnd}>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 ">
           {statusTypes.map((status) => (
-            <Droppable droppableId={status} key={status}>
+            <Droppable
+              droppableId={status}
+              key={status}>
               {(provided) => (
-                <div
-                  ref={provided.innerRef}
-                  {...provided.droppableProps}
-                  className="bg-gray-100 rounded-md p-4 min-h-[400px]"
-                >
+                <div>
                   <h2 className="text-lg text-center font-semibold mb-3">{status}</h2>
-                  {groupedTasks[status].map((task, index) => (
-                    <Draggable
-                      draggableId={task._id}
-                      index={index}
-                      key={task._id}
-                    >
-                      {(provided) => (
-                        <div
-                          ref={provided.innerRef}
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
-                          className="mb-4 select-none"
-                        >
-                          <Card
-                            task={task}
-                            handleOnDelete={handleOnDelete}
-                            handleOnEdit={handleOnEdit}
-                            handleStatusChange={handleStatusChange}
-                          />
-                        </div>
-                      )}
-                    </Draggable>
-                  ))}
-                  {provided.placeholder}
+                  <div
+                    // className=""
+                    ref={provided.innerRef}
+                    {...provided.droppableProps}
+                    className="sm:h-[75vh] sm:overflow-y-scroll bg-gray-100 rounded-md p-4 min-h-[400px]"
+                  >
+                    {groupedTasks[status].map((task, index) => (
+                      <Draggable
+                        draggableId={task._id}
+                        index={index}
+                        key={task._id}
+                      >
+                        {(provided) => (
+                          <div
+                            ref={provided.innerRef}
+                            {...provided.draggableProps}
+                            {...provided.dragHandleProps}
+                            className="mb-4 select-none"
+                          >
+                            <Card
+                              task={task}
+                              handleOnDelete={handleOnDelete}
+                              handleOnEdit={handleOnEdit}
+                              handleStatusChange={handleStatusChange}
+                            />
+                          </div>
+                        )}
+                      </Draggable>
+                    ))}
+                    {provided.placeholder}
+                  </div>
                 </div>
               )}
             </Droppable>
